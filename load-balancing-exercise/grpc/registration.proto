@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc";
+
+package grpc;
+
+// Registrar service which allows
+service Registrar {
+    // Register another worker
+    rpc RequestWorkerRegistration (RegistrationRequest) returns (RegistrationReply) {}
+
+    // TODO(agronskiy): implement this
+    // rpc TerminateRegistration (TerminationRequest) returns (RegistrationReply) {}
+}
+
+// The request message containing the user's name.
+message RegistrationRequest {
+    string host = 1;
+}
+
+// The response message containing the greetings
+message RegistrationReply {
+    bool ok = 1;
+    string port = 2;
+}
