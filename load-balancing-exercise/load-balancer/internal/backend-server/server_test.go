@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"testing"
@@ -7,7 +7,6 @@ import (
 )
 
 func TestInit(t *testing.T) {
-	initialize()
 
 	if len(freePorts) != consts.MaxListeners || cap(freePorts) != len(freePorts) {
 		t.Errorf("Wrong length of `freePorts`.")
@@ -19,7 +18,6 @@ func TestInit(t *testing.T) {
 }
 
 func TestGetNextFreePort(t *testing.T) {
-	initialize()
 
 	for i := 0; i < consts.MaxListeners; i++ {
 

@@ -1,4 +1,4 @@
-package main
+package worker
 
 import (
 	"fmt"
@@ -9,7 +9,12 @@ import (
 	pb "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc"
 )
 
-func initializeGrpcRegistrationClient() (pb.RegistrarClient, *grpc.ClientConn) {
+const (
+	registrationServerPort = "50000"
+)
+
+// InitializeGrpcRegistrationClient initializing client
+func InitializeGrpcRegistrationClient() (pb.RegistrarClient, *grpc.ClientConn) {
 	var opts []grpc.DialOption
 	// TODO(agronskiy): needs investigation
 	opts = append(opts, grpc.WithInsecure())
@@ -20,5 +25,6 @@ func initializeGrpcRegistrationClient() (pb.RegistrarClient, *grpc.ClientConn) {
 	}
 
 	client := pb.NewRegistrarClient(conn)
+
 	return client, conn
 }
