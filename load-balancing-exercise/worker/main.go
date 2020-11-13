@@ -9,25 +9,22 @@ import (
 	"github.com/agronskiy/golang-learning/load-balancing-exercise/worker/internal/worker"
 )
 
-func runClient(c chan int) {
+func registerWorker(port string) {
 	client, conn := worker.InitializeGrpcRegistrationClient()
 	defer conn.Close()
 
 	reply, err := client.RequestWorkerRegistration(
 		context.Background(),
-		&pb.RegistrationRequest{Host: "localhost"})
+		&pb.RegistrationRequest{Port: port})
 	if err != nil {
 		log.Fatalf("Could not request port: %v", err)
 	}
-	fmt.Printf("Reply: %s", reply.Port)
-
-	c <- 0
+	fmt.Println(fmt.Sprintf("Reply: %v", reply.Ok))
 }
 
 func main() {
-	c := make(chan int)
-	go runClient(c)
-
-	// Wait until
-	<-c
+	port := worker.RunGrpcWorkerServer()
+	registerWorker(port)
+	for {
+	}
 }

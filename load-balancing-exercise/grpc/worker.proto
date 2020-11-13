@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc";
+
+package grpc;
+
+// Registrar service which allows
+service Worker {
+    // Perform work operation
+    rpc PerformJob (JobRequest) returns (JobReply) {}
+}
+
+// Request some job.
+message JobRequest {
+    int32 x = 1;
+}
+
+// Return some job.
+message JobReply {
+    int32 result = 1;
+}

@@ -25,7 +25,7 @@ func (s *mockServer) RequestWorkerRegistration(
 	r *pb.RegistrationRequest,
 ) (*pb.RegistrationReply, error) {
 
-	reply := &pb.RegistrationReply{Ok: true, Port: "12345"}
+	reply := &pb.RegistrationReply{Ok: true}
 	return reply, nil
 }
 
@@ -52,7 +52,7 @@ func TestRequestRegistration(t *testing.T) {
 	}
 	defer conn.Close()
 	client := pb.NewRegistrarClient(conn)
-	resp, err := client.RequestWorkerRegistration(ctx, &pb.RegistrationRequest{Host: "mockhost"})
+	resp, err := client.RequestWorkerRegistration(ctx, &pb.RegistrationRequest{Port: "0000"})
 	if err != nil {
 		t.Fatalf("RequestWorkerRegistration call failed: %v", err)
 	}
@@ -60,9 +60,4 @@ func TestRequestRegistration(t *testing.T) {
 	if resp.Ok != true {
 		t.Errorf("RequestWorkerRegistration() returned `false` when otherwise requested.")
 	}
-
-	if resp.Port != "12345" {
-		t.Errorf("RequestWorkerRegistration() returned wrong port.")
-	}
-
 }

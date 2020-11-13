@@ -8,53 +8,34 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/peer"
 
 	"github.com/agronskiy/golang-learning/load-balancing-exercise/consts"
 	pb "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc"
+	"github.com/agronskiy/golang-learning/load-balancing-exercise/load-balancer/internal/queue"
 )
-
-var (
-	freePorts         []string
-	downstreamServers map[string]interface{}
-)
-
-func init() {
-	freePorts = make([]string, 0, consts.MaxListeners)
-	basePort := 50001
-	for i := 0; i < cap(freePorts); i++ {
-		freePorts = append(freePorts, fmt.Sprintf("%v", basePort+i))
-	}
-}
 
 type registrationServer struct {
 	pb.UnimplementedRegistrarServer
 }
 
-func getNextFreePort() (string, error) {
-	if len(freePorts) == 0 {
-		return "", errors.New("No free ports")
-	}
-
-	res := freePorts[len(freePorts)-1]
-	freePorts = freePorts[:len(freePorts)-1]
-	return res, nil
-
-}
-
-func (s *registrationServer) RequestWorkerRegistration(
+func (*registrationServer) RequestWorkerRegistration(
 	ctx context.Context,
 	r *pb.RegistrationRequest,
 ) (*pb.RegistrationReply, error) {
-	log.Printf("Request from host: %v", r.Host)
-
-	port, err := getNextFreePort()
-	if err != nil {
-		log.Printf("Error: %s", err)
-		reply := &pb.RegistrationReply{Ok: false}
-		return reply, err
+	p, ok := peer.FromContext(ctx)
+	if !ok {
+		return nil, errors.New("RegistrationServer: Could not determine the host of the worker")
 	}
+	workerHost := p.Addr.(*net.TCPAddr).IP.String() + ":" + r.Port
+	log.Printf("Worker running on host: %v", workerHost)
 
-	reply := &pb.RegistrationReply{Ok: true, Port: port}
+	// This starts the worker client which reads from the input channel
+	go func() {
+		workerGoroutine(workerHost, queue.StopWorkersChan, queue.MainQueue)
+	}()
+
+	reply := &pb.RegistrationReply{Ok: true}
 	return reply, nil
 }
 
@@ -65,13 +46,18 @@ func InitializeGrpcRegistrationServer() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
 	var opts []grpc.ServerOption
 
 	grpcServer := grpc.NewServer(opts...)
 
-	log.Println("Initializing gRPC backend registration server NEW...")
+	log.Println("Initializing gRPC backend registration server...")
 	pb.RegisterRegistrarServer(grpcServer, &registrationServer{})
 	log.Println("Starting gRPC backend registration server...")
-	grpcServer.Serve(lis)
+
+	go func() {
+		grpcServer.Serve(lis)
+	}()
+
 	log.Println("Done")
 }
