@@ -5,7 +5,9 @@ import (
 )
 
 // T is the testing type
-type T struct{}
+type T struct {
+	i int8
+}
 
 // Pointer type receiver
 func (receiver *T) pointerMethod() {
@@ -28,4 +30,7 @@ func main() {
 
 	val.valueMethod()
 	pointer.pointerMethod()
+
+	val.pointerMethod()
+	pointer.valueMethod()
 }
