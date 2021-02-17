@@ -2,7 +2,7 @@
 
 Some TODOs:
 - [x] Implement server REST API (Very simple one)
-- [x] (**doing**) Finish implementing worker registration in GRPC
+- [x] Finish implementing worker registration in GRPC
     - [x] do strip IP ports
 - [ ] Learning concurrency: implement worker heartbits
     - [ ] allow dynamic deallocation
