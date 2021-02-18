@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 
-	pb "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc"
+	pb "github.com/agronskiy/golang-learning/load-balancer-grpc/grpc"
 )
 
 const bufSize = 1024 * 1024

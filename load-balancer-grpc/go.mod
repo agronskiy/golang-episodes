@@ -1,4 +1,4 @@
-module github.com/agronskiy/golang-learning/load-balancing-exercise
+module github.com/agronskiy/golang-learning/load-balancer-grpc
 
 go 1.15
 

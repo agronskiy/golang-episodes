@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc";
+option go_package = "github.com/agronskiy/golang-learning/load-balancer-grpc/grpc";
 
 package grpc;
 

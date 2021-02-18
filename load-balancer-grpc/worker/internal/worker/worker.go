@@ -8,8 +8,8 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/agronskiy/golang-learning/load-balancing-exercise/consts"
-	pb "github.com/agronskiy/golang-learning/load-balancing-exercise/grpc"
+	"github.com/agronskiy/golang-learning/load-balancer-grpc/consts"
+	pb "github.com/agronskiy/golang-learning/load-balancer-grpc/grpc"
 )
 
 // InitializeGrpcRegistrationClient initializing client

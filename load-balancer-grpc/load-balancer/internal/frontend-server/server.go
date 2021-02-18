@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/agronskiy/golang-learning/load-balancing-exercise/load-balancer/internal/queue"
+	"github.com/agronskiy/golang-learning/load-balancer-grpc/load-balancer/internal/queue"
 )
 
 func doNothing(w http.ResponseWriter, r *http.Request) {}

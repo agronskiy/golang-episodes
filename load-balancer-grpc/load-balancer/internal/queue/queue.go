@@ -2,7 +2,7 @@
 // backend of the load balancer
 package queue
 
-import "github.com/agronskiy/golang-learning/load-balancing-exercise/consts"
+import "github.com/agronskiy/golang-learning/load-balancer-grpc/consts"
 
 // Request is a struct that is sent into the queue
 type Request struct {
