@@ -2,41 +2,9 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/fatih/color"
 )
-
-// PointerMethodCaller is the testing interface
-type PointerMethodCaller interface {
-	pointerMethod()
-}
-
-// ValueMethodCaller is the testing interface
-type ValueMethodCaller interface {
-	valueMethod()
-}
-
-// T is the testing type
-type T struct {
-	i int8
-}
-
-// Pointer type receiver
-func (receiver *T) pointerMethod() {
-	fmt.Printf("Pointer method called on \t%#v with address %p\n", *receiver, receiver)
-}
-
-// Value type receiver
-func (receiver T) valueMethod() {
-	fmt.Printf("Value method called on \t%#v with address %p\n", receiver, &receiver)
-}
-
-// Calling methods on interfaces
-func callValueMethodOnInterface(v ValueMethodCaller) {
-	v.valueMethod()
-}
-
-func callPointerMethodOnInterface(p PointerMethodCaller) {
-	p.pointerMethod()
-}
 
 func main() {
 	var (
@@ -51,15 +19,31 @@ func main() {
 	pointer.pointerMethod()
 
 	// Cross-calling on different receivers
-	fmt.Println("### Cross-calling on different receivers ###")
+	color.Green("\n### Cross-calling on different receivers ###")
+	fmt.Println()
 	val.pointerMethod()
 	pointer.valueMethod()
 
 	// Interface part
-	fmt.Println("### Interface part ###")
+	color.Green("\n### Interface part ###")
+	fmt.Println()
 	callValueMethodOnInterface(val)
 	callPointerMethodOnInterface(pointer)
 
 	callValueMethodOnInterface(pointer)
-	callPointerMethodOnInterface(val)
+
+	// THIS IS WHAT CRASHES (see blog post)
+	// callPointerMethodOnInterface(val)
+
+	color.Green("\n### Demonstrate copying in the interface ###")
+	fmt.Println()
+	demonstrateCopyingByInterface()
+
+	color.Green("\n### Dynamic type in the interface ###")
+	fmt.Println()
+	demonstrateDifferentTypesInTheInterface()
+
+	color.Green("\n### Always new copy in the interface ###")
+	fmt.Println()
+	demonstrateCopyingInTheInterface()
 }
