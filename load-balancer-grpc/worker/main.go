@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	pb "github.com/agronskiy/golang-learning/load-balancer-grpc/grpc"
-	"github.com/agronskiy/golang-learning/load-balancer-grpc/worker/internal/worker"
+	pb "github.com/agronskiy/golang-episodes/load-balancer-grpc/grpc"
+	"github.com/agronskiy/golang-episodes/load-balancer-grpc/worker/internal/worker"
 )
 
 func registerWorker(port string) {

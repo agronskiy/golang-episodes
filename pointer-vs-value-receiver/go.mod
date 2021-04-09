@@ -1,4 +1,4 @@
-module github.com/agronskiy/golang-learning/pointer-vs-value-receiver
+module github.com/agronskiy/golang-episodes/pointer-vs-value-receiver
 
 go 1.15
 

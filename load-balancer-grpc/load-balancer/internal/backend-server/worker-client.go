@@ -6,8 +6,8 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "github.com/agronskiy/golang-learning/load-balancer-grpc/grpc"
-	"github.com/agronskiy/golang-learning/load-balancer-grpc/load-balancer/internal/queue"
+	pb "github.com/agronskiy/golang-episodes/load-balancer-grpc/grpc"
+	"github.com/agronskiy/golang-episodes/load-balancer-grpc/load-balancer/internal/queue"
 )
 
 type workerGrpcInfo struct {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	backserver "github.com/agronskiy/golang-learning/load-balancer-grpc/load-balancer/internal/backend-server"
-	frontserver "github.com/agronskiy/golang-learning/load-balancer-grpc/load-balancer/internal/frontend-server"
+	backserver "github.com/agronskiy/golang-episodes/load-balancer-grpc/load-balancer/internal/backend-server"
+	frontserver "github.com/agronskiy/golang-episodes/load-balancer-grpc/load-balancer/internal/frontend-server"
 )
 
 func main() {

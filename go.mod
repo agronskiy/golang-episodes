@@ -1,4 +1,4 @@
-module github.com/agronskiy/golang-learning
+module github.com/agronskiy/golang-episodes
 
 go 1.15
 

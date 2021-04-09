@@ -10,9 +10,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/peer"
 
-	"github.com/agronskiy/golang-learning/load-balancer-grpc/consts"
-	pb "github.com/agronskiy/golang-learning/load-balancer-grpc/grpc"
-	"github.com/agronskiy/golang-learning/load-balancer-grpc/load-balancer/internal/queue"
+	"github.com/agronskiy/golang-episodes/load-balancer-grpc/consts"
+	pb "github.com/agronskiy/golang-episodes/load-balancer-grpc/grpc"
+	"github.com/agronskiy/golang-episodes/load-balancer-grpc/load-balancer/internal/queue"
 )
 
 type registrationServer struct {
